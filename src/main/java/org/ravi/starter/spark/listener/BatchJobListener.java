@@ -1,12 +1,9 @@
 package org.ravi.starter.spark.listener;
 
-import org.apache.spark.sql.connector.read.Batch;
 import org.apache.spark.streaming.scheduler.BatchInfo;
-import org.apache.spark.streaming.scheduler.OutputOperationInfo;
 import org.apache.spark.streaming.scheduler.StreamingListener;
 import org.apache.spark.streaming.scheduler.StreamingListenerBatchCompleted;
 import org.ravi.starter.spark.util.BatchOffsetsInfo;
-import scala.collection.Iterable;
 
 /**
  * @author raviteja.kothapalli
