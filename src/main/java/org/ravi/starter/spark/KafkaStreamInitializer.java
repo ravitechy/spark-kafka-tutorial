@@ -10,6 +10,8 @@ import org.apache.spark.streaming.api.java.JavaInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 import org.apache.spark.streaming.kafka010.*;
 import org.ravi.starter.kafka.KafkaConfig;
+import org.ravi.starter.spark.util.BatchIdGenerator;
+import org.ravi.starter.spark.util.BatchOffsetsInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -67,6 +69,10 @@ public class KafkaStreamInitializer {
                 for (OffsetRange offsetRange : offsetRanges) {
                     long batchCount = offsetRange.untilOffset() - offsetRange.fromOffset();
                     if (batchCount > 0) {
+                        long batchId = BatchIdGenerator.INSTANCE.generateBatchId();
+                        BatchOffsetsInfo.INSTANCE.setBatchId(batchId);
+                        BatchOffsetsInfo.INSTANCE.setFromOffset(offsetRange.fromOffset());
+                        BatchOffsetsInfo.INSTANCE.setToOffset(offsetRange.untilOffset());
                         System.out.println("Batch count : " + batchCount + ", From offset: " + offsetRange.fromOffset() + ", Until offset: " + offsetRange.untilOffset());
                     }
                 }
